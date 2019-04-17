@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/VSPluginRotateNodeWithPose">
+        <file>ToggleVisuRotAxes.png</file>
+        <file>CreateRotNode.png</file>
+        <file>CreateTransNode.png</file>
+		<file>CreateTransSphereNode.png</file>
+    </qresource>
+</RCC>
