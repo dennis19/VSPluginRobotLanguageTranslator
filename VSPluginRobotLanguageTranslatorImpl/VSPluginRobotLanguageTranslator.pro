@@ -79,7 +79,10 @@ VS_DEPENDENCIES = \
    VSDIO \
    VSLibPoseList \
    VSLibPython \
-   VSLibActionBlocks
+   VSPluginPython \
+   VSLibActionBlocks \
+   VSLibIOTools \
+   VSLibKinematics
    
 VS_DESCRIPTION = "VS Plugin to demonstrate the basic construction of a VS Plugin and it's access of the different frameworks."
 VS_MAINTAINER = bjoern.grothe@rt.rif-ev.de

@@ -12,6 +12,8 @@
 #include "../../../Plugin/VSLibPoseList/VSLibPoseListPoseList.h"
 
 #include "VSPluginRobotLanguageTranslatorInterface.h"
+#include "../../../Plugin/VSLibActionBlocks/VSLibActionBlocksAgent.h"
+#include "../../../Lib/VSD/VSDMetaInstance.h"
 
 namespace VSD
 {
@@ -64,16 +66,38 @@ namespace VSPluginRobotLanguageTranslator
                                           const double upperLimit);
       void restrictVectorToPositivCoordinateAxes(VSM::Vector3& vec);
 
-	  void initializePython();
+	  //read in file
+	  QVariantList SetUpPythonUploadProgram(QString file_name_);
+	  QVariantList SetUpPythonUploadGlobalData(QString file_name_);
+	  //write file
+	  QVariantList SetUpPythonDownloadProgram(QVariantList statement_data_);
+	  QString SetUpPythonDownloadPositionDefinition(QVariantList statement_data_);
 
-	  void createPose(VSLibPoseList::PoseList *poseList,QVector<float> statement_data_);
+	  //create Position
+	  void createPose(VSLibPoseList::PoseList *poseList, QVariantList statement_data_);//(VSLibPoseList::PoseList *poseList,QVector<float> statement_data_,QString line, QString file_name_);
 
+	  //create PoseList
 	  VSLibPoseList::PoseList* CreateNewPoseList(bool select);
 
+	  //create Path from current Positions in Poselist
 	  QList<VSLibPoseList::Path*> CreateNewPathsFromPoseLists(const QList<const VSLibPoseList::PoseList*>& poseLists) const;
 	  bool insertPoseToPath(VSLibPoseList::Pose* pose, VSLibPoseList::Path* path, int index = -1) const;
 	  VSLibPoseList::Path* CreateNewPath(const QString& name = tr("Path")) const;
 	  VSLibPoseList::PathPose* createNewPathPose(VSLibPoseList::Path* path, VSLibPoseList::Pose* refPose, bool createIOs);
+	  
+	  //create global Positions
+	  void createPoseGlobal(VSLibPoseList::PoseList *poseList, QVariantList statement_data_);//(VSLibPoseList::PoseList *poseList,QVector<float> statement_data_,QString line, QString file_name_);
+
+	  //write file
+	  QVariantList getCoordinates(VSLibPoseList::PathPose* pathPose);
+
+	  bool generateActionBlocksForPathMovement(VSLibPoseList::Path* path);
+
+	  VSLibActionBlocks::Agent* findAgentFromPath(VSLibPoseList::Path* path);
+
+	  bool createActionBlocks(VSLibPoseList::Path* path);
+
+
 	  // services      
    signals:
       void signalVisuRotAxesModified(bool on);
@@ -109,6 +133,7 @@ namespace VSPluginRobotLanguageTranslator
       double minVelBoarder;
       double maxVelBoarder;
       Visu* visu;    
+	  const VSD::MetaInstance* abMetaInstMoveToPose;
    }; // class Project
 }; // namespace VSPluginRotateNodeWithPose
 

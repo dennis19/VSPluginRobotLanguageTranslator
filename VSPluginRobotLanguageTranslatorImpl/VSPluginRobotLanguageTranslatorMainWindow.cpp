@@ -16,7 +16,7 @@
 // header
 #include "../VSPluginRobotLanguageTranslatorMainWindow.h"
 
-
+#include "../../../Plugin/VSLibPython/api/VSLibPythonAPI.h"
 
 
 VSPluginRobotLanguageTranslator::MainWindow::MainWindow(VSP::Interface* interface, VEROSIM::MainWindow* mainwindow)
